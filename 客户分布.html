@@ -32,8 +32,10 @@ option = {
     legend: {
         orient: 'vertical',
         left: 'left',
-        data:['总体分布','高单价分布']
+        data:['总体分布','高单价分布'],
+			selectedMode: 'single'
     },
+
     visualMap: {
         min: 0,
         max: 2500,
@@ -52,6 +54,7 @@ option = {
             restore: {},
             saveAsImage: {}
         }
+	
     },
     series: [
         {
