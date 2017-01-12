@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 150%; margin: 1cm">
+       <div id="container" style="height: 90%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+app.title = '2016年各月产品订购情况';
+
+var hours = ['201601', '201602', '201603', '201604', '201605', '201606', '201607',
+        '201608', '201609', '201610','201611','201612','201612'];
+var days = [
+'里约奥运会钞形纯银纪念版',
+'里约奥运会邮票纪念币第二版',
+'丙申猴年洪福齐天银砖',
+'美猴王生肖套装（第二版）',
+'里约奥运会金银纪念章',
+'红色财富珍藏册第三版',
+'里约奥运会纪念币',
+'和平与发展珍藏版第二版',
+'和平与发展珍藏版',
+'金猴贺岁纪念银章',
+'和平与发展世界精品钱币典藏',
+'艾森伯格石英男表（金色）',
+'里约奥运会纪念币新',
+'世界财富宝典第三版'];
+
+var data = [[0,0,],	[0,1,],	[0,2,],	[0,3,2654],	[0,4,3359],	[0,5,4524],	[0,6,5345],	[0,7,8936],	[0,8,1259],	[0,9,46],	[0,10,3],	[0,11,7],
+[1,0,],	[1,1,],	[1,2,],	[1,3,],	[1,4,],	[1,5,7383],	[1,6,11861],	[1,7,5332],	[1,8,1141],	[1,9,40],	[1,10,4],	[1,11,1],
+[2,0,3405],	[2,1,2320],	[2,2,3591],	[2,3,2216],	[2,4,796],	[2,5,462],	[2,6,305],	[2,7,81],	[2,8,733],	[2,9,1217],	[2,10,1248],	[2,11,0],
+[3,0,5852],	[3,1,4152],	[3,2,4489],	[3,3,734],	[3,4,0],	[3,5,0],	[3,6,0],	[3,7,0],	[3,8,0],	[3,9,0],	[3,10,0],	[3,11,0],
+[4,0,],	[4,1,],	[4,2,],	[4,3,],	[4,4,2926],	[4,5,3670],	[4,6,3983],	[4,7,3633],	[4,8,1009],	[4,9,1],	[4,10,0],	[4,11,0],
+[5,0,],	[5,1,],	[5,2,],	[5,3,],	[5,4,],	[5,5,],	[5,6,],	[5,7,],	[5,8,],	[5,9,],	[5,10,4995],	[5,11,10117],
+[6,0,],	[6,1,],	[6,2,],	[6,3,413],	[6,4,3769],	[6,5,5266],	[6,6,4949],	[6,7,521],	[6,8,21],	[6,9,0],	[6,10,0],	[6,11,0],
+[7,0,],	[7,1,],	[7,2,],	[7,3,],	[7,4,1410],	[7,5,2141],	[7,6,2108],	[7,7,1710],	[7,8,1906],	[7,9,1832],	[7,10,1809],	[7,11,1733],
+[8,0,3739],	[8,1,2323],	[8,2,3676],	[8,3,2990],	[8,4,1341],	[8,5,0],	[8,6,0],	[8,7,0],	[8,8,0],	[8,9,3],	[8,10,0],	[8,11,0],
+[9,0,4640],	[9,1,2967],	[9,2,4041],	[9,3,1338],	[9,4,161],	[9,5,80],	[9,6,127],	[9,7,64],	[9,8,39],	[9,9,1],	[9,10,0],	[9,11,0],
+[10,0,3608],	[10,1,2557],	[10,2,4831],	[10,3,2024],	[10,4,0],	[10,5,0],	[10,6,0],	[10,7,0],	[10,8,0],	[10,9,0],	[10,10,0],	[10,11,0],
+[11,0,0],	[11,1,0],	[11,2,1],	[11,3,1189],	[11,4,1087],	[11,5,824],	[11,6,877],	[11,7,551],	[11,8,1212],	[11,9,2317],	[11,10,2005],	[11,11,1084],
+[12,0,],	[12,1,],	[12,2,],	[12,3,],	[12,4,],	[12,5,],	[12,6,1107],	[12,7,7959],	[12,8,1757],	[12,9,1],	[12,10,0],	[12,11,0],
+[13,0,],	[13,1,],	[13,2,],	[13,3,2669],	[13,4,2527],	[13,5,1684],	[13,6,1386],	[13,7,749],	[13,8,593],	[13,9,622],	[13,10,314],	[13,11,170]];
+
+data = data.map(function (item) {
+    return [item[1], item[0], item[2] || '-'];
+});
+
+option = {
+    tooltip: {
+        position: 'top'
+    },
+    animation: false,
+    grid: {
+        height: '50%',
+        y: '10%'
+    },
+    xAxis: {
+        type: 'category',
+        data: hours,
+        splitArea: {
+            show: true
+        }
+    },
+    yAxis: {
+        type: 'category',
+        data: days,
+        splitArea: {
+            show: true
+        }
+    },
+    visualMap: {
+        min: 0,
+        max: 12000,
+        calculable: true,
+        orient: 'horizontal',
+        left: 'center',
+        bottom: '36%'
+    },
+    series: [{
+        name: '订购数量',
+        type: 'heatmap',
+        data: data,
+        label: {
+            normal: {
+                show: true
+            }
+        },
+        itemStyle: {
+            emphasis: {
+                shadowBlur: 10,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        }
+    }]
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
